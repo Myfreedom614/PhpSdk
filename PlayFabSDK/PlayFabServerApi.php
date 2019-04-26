@@ -29,6 +29,20 @@ class PlayFabServerApi
     }
 
     /// <summary>
+    /// Adds the specified generic service identifier to the player's PlayFab account. This is designed to allow for a PlayFab
+    /// ID lookup of any arbitrary service identifier a title wants to add. This identifier should never be used as
+    /// authentication credentials, as the intent is that it is easily accessible by other players.
+    /// https://api.playfab.com/Documentation/Server/method/AddGenericID
+    /// </summary>
+    public static function AddGenericID($titleId, $developerSecreteKey, $request)
+    {
+        //TODO: Check the devSecretKey
+
+        $result = PlayFabHttp::MakeCurlApiCall($titleId, "/Server/AddGenericID", $request, "X-SecretKey", $developerSecreteKey);
+        return $result;
+    }
+
+    /// <summary>
     /// Adds a given tag to a player profile. The tag's namespace is automatically generated based on the source of the tag.
     /// https://api.playfab.com/Documentation/Server/method/AddPlayerTag
     /// </summary>
@@ -518,6 +532,20 @@ class PlayFabServerApi
     }
 
     /// <summary>
+    /// Retrieves the unique PlayFab identifiers for the given set of generic service identifiers. A generic identifier is the
+    /// service name plus the service-specific ID for the player, as specified by the title when the generic identifier was
+    /// added to the player account.
+    /// https://api.playfab.com/Documentation/Server/method/GetPlayFabIDsFromGenericIDs
+    /// </summary>
+    public static function GetPlayFabIDsFromGenericIDs($titleId, $developerSecreteKey, $request)
+    {
+        //TODO: Check the devSecretKey
+
+        $result = PlayFabHttp::MakeCurlApiCall($titleId, "/Server/GetPlayFabIDsFromGenericIDs", $request, "X-SecretKey", $developerSecreteKey);
+        return $result;
+    }
+
+    /// <summary>
     /// Retrieves the unique PlayFab identifiers for the given set of Nintendo Switch Device identifiers.
     /// https://api.playfab.com/Documentation/Server/method/GetPlayFabIDsFromNintendoSwitchDeviceIds
     /// </summary>
@@ -978,6 +1006,18 @@ class PlayFabServerApi
         //TODO: Check the devSecretKey
 
         $result = PlayFabHttp::MakeCurlApiCall($titleId, "/Server/RemoveFriend", $request, "X-SecretKey", $developerSecreteKey);
+        return $result;
+    }
+
+    /// <summary>
+    /// Removes the specified generic service identifier from the player's PlayFab account.
+    /// https://api.playfab.com/Documentation/Server/method/RemoveGenericID
+    /// </summary>
+    public static function RemoveGenericID($titleId, $developerSecreteKey, $request)
+    {
+        //TODO: Check the devSecretKey
+
+        $result = PlayFabHttp::MakeCurlApiCall($titleId, "/Server/RemoveGenericID", $request, "X-SecretKey", $developerSecreteKey);
         return $result;
     }
 
