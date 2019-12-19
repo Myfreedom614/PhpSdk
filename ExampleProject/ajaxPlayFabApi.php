@@ -16,7 +16,8 @@ function ParsePostRequest() {
         $authValue = $PlayFabApi === "Client" ? $ClientSessionToken : $DevSecretKey;
         $apiReflection = new ReflectionClass("PlayFab" . $PlayFabApi . "Api");
         $methodReflection = $apiReflection->getMethod($ApiMethod);
-        $result = $methodReflection->invoke(null, $TitleId, $authValue, $JsonRequest);
+        if($authValue) $result = $methodReflection->invoke(null, $TitleId, $authValue, $JsonRequest);
+        else $result = $methodReflection->invoke(null, $TitleId, $JsonRequest);
         echo $result;
     } catch (Exception $e) {
         echo "Caught exception: ",  $e->getMessage(), "\n";
